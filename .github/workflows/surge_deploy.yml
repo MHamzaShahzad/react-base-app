@@ -3,30 +3,25 @@
 
 name: react-base-app CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
-
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
-    - name: Use REACT-BASE-APP ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: Install Node.js ${{ matrix.node-version }}
+    - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install -g surge
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm start
-    - run: echo "Deploying website"
-    - run: surge ./ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }} 
+    - name: Instal Dependencies
+      run: npm install
+    - name: Build React App
+      run: npm run build --if-present
+    - name: Install Surge
+      run: npm install -g surge
+    - name: Deploying website
+      run: surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }} 
