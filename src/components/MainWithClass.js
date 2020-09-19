@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ThemeContext from "../context/ThemeContext";
 import AppTheme from "./Color";
+import CarsProvider from "./CarsProvider";
+import ProductList from "./ProductList";
 
 export default class Main extends Component {
   constructor() {
@@ -21,9 +23,11 @@ export default class Main extends Component {
                 color: `${currentTheme.textColor}`,
               }}
             >
-              <h1>Heading 1</h1>
-              <p>This is a paragraph</p>
-              <button> This is a button</button>
+              <CarsProvider>
+                <div className="App">
+                  <ProductList />
+                </div>
+              </CarsProvider>
             </main>
           );
         }}

@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import ThemeContext from "../context/ThemeContext";
 import AppTheme from "./Color";
+import CarsProvider from "./CarsProvider";
+import ProductList from "./ProductList";
 
 const Main = () => {
   const theme = useContext(ThemeContext)[0];
@@ -13,9 +15,11 @@ const Main = () => {
         color: `${currentTheme.textColor}`,
       }}
     >
-      <h1>Heading 1</h1>
-      <p>This is a paragraph</p>
-      <button> This is a button</button>
+      <CarsProvider>
+        <div className="App">
+          <ProductList />
+        </div>
+      </CarsProvider>
     </main>
   );
 };
